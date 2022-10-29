@@ -42,15 +42,6 @@ const productSchema = mongoose.Schema(
       required: [true, 'category is required'],
       trim: true,
     },
-    status: {
-      type: String,
-      required: true,
-      enum: {
-        values: ['in-stock', 'out-of-stock', 'discontinued'],
-        message:
-          "Status can't be {VALUE}, it should be in-stock/out-of-stock/discontinued",
-      },
-    },
   },
   { timestamps: true }
 );
