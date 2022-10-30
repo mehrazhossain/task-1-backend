@@ -12,6 +12,7 @@ app.use(cookieParser('secretKey'));
 const productRoute = require('./routes/product.route');
 const userRoute = require('./routes/user.route');
 const loginRoute = require('./routes/login.route');
+const registerRoute = require('./routes/register.route');
 
 app.get('/', (req, res) => {
   res.send('API is running..');
@@ -21,5 +22,6 @@ app.get('/', (req, res) => {
 app.use('/api/v1/product', productRoute);
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/user', loginRoute);
+app.use('/api/v1/register', registerRoute);
 
 module.exports = app;

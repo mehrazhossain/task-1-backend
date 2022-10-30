@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const connectDB = mongoose
-  .connect(process.env.DATABASE_LOCAL)
+  .connect(process.env.DATABASE_ATLAS)
   .then(() => {
     console.log(`Database connected successfully`.green.bold);
   })
