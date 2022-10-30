@@ -1,10 +1,5 @@
 const User = require('../models/User');
 
-exports.createUserService = async (data) => {
-  const user = await User.create(data);
-  return user;
-};
-
 exports.getUsersService = async () => {
   const users = await User.find({});
   return users;
