@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 // routes base url
 app.use('/api/v1/product', productRoute);
 app.use('/api/v1/user', userRoute);
-app.use('/api/v1/user', loginRoute);
+app.use('/api/v1/login', loginRoute);
 app.use('/api/v1/register', registerRoute);
 
 module.exports = app;

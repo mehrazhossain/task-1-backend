@@ -1,37 +1,45 @@
-const { getUserService } = require('../services/login.service');
+const { loginUserService } = require('../services/login.service');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-exports.getUser = async (req, res, next) => {
+exports.loginUser = async (req, res, next) => {
   const { email, password } = req.body;
-  try {
-    const user = await getUserService(email, password);
-    if (!user) {
-      return res.status(400).send('Unable to login');
-    }
-
-    // Generate auth token
-    const token = user.generateAuthToken();
-    // Send as header
-    // res.header('x-auth-token', token);
-    res.cookie('auth', token, {
-      httpOnly: true,
-      sameSite: true,
-      signed: true,
-      maxAge: 4 * 60 * 60 * 1000, // 4 hours
-    });
-
-    res.status(200).json({
-      status: 'successfully logged in',
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      message: 'Something went wrong',
-      error: error.message,
+  const user = await loginUserService(email);
+  // Check if user not exists
+  if (!user) {
+    return res.status(404).json({
+      emailNotFound: 'Email is not registered',
     });
   }
-};
 
-exports.userLogout = async (req, res, next) => {
-  res.clearCookie('auth');
-  res.send('Successfully Logged Out');
+  //Match Password
+  bcrypt.compare(password, user.password).then((isMatch) => {
+    if (isMatch) {
+      //User Matched
+      //Create JWT Payload
+      const payload = {
+        id: user._id,
+        name: user.name,
+      };
+
+      //Sign Token
+      jwt.sign(
+        payload,
+        'secretOrKey',
+        {
+          expiresIn: 63113852, //2 years in seconds    ‬
+        },
+        (err, token) => {
+          res.json({
+            success: true,
+            token: 'Bearer' + token,
+          });
+        }
+      );
+    } else {
+      return res.status(400).json({
+        passwordIncorrect: 'Password incorrect',
+      });
+    }
+  });
 };
