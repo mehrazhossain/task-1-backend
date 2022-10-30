@@ -20,7 +20,7 @@ exports.getUser = async (req, res, next) => {
     });
 
     res.status(200).json({
-      status: 'success',
+      status: 'successfully logged in',
     });
   } catch (error) {
     res.status(400).json({
@@ -29,4 +29,9 @@ exports.getUser = async (req, res, next) => {
       error: error.message,
     });
   }
+};
+
+exports.userLogout = async (req, res, next) => {
+  res.clearCookie('auth');
+  res.send('Successfully Logged Out');
 };

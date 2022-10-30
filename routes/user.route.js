@@ -9,14 +9,14 @@ const { auth } = require('../middleware/auth');
 // GET - Get all products
 router
   .route('/')
-  .post(userController.createUser)
+  .post(auth, userController.createUser)
   .get(auth, userController.getUsers);
 
 // PATCH - Update a product
 // DELETE - Delete a product
 router
   .route('/:id')
-  .patch(userController.updateUser)
-  .delete(userController.deleteUser);
+  .patch(auth, userController.updateUser)
+  .delete(auth, userController.deleteUser);
 
 module.exports = router;

@@ -16,6 +16,6 @@ module.exports.auth = async (req, res, next) => {
       res.status(401).send('UnAuthorized Access');
     }
   } else {
-    res.status(401).send('No token Provided or Unauthorized');
+    return res.status(401).send('No token Provided or Unauthorized');
   }
 };
