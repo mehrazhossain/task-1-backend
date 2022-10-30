@@ -18,8 +18,10 @@ exports.loginUser = async (req, res, next) => {
       //User Matched
       //Create JWT Payload
       const payload = {
-        id: user._id,
+        id: user.id,
         name: user.name,
+        email: user.email,
+        role: user.role,
       };
 
       //Sign Token
@@ -32,7 +34,7 @@ exports.loginUser = async (req, res, next) => {
         (err, token) => {
           res.json({
             success: true,
-            token: 'Bearer' + token,
+            token: 'Bearer' + ' ' + token,
           });
         }
       );
