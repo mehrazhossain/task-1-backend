@@ -24,6 +24,7 @@ exports.createUser = async (req, res, next) => {
 };
 
 exports.getUsers = async (req, res, next) => {
+  console.log(req.user);
   try {
     const users = await getUsersService();
 
