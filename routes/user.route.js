@@ -10,6 +10,7 @@ const { auth } = require('../middleware/auth');
 router
   .route('/')
   .post(auth, userController.createUser)
+
   .get(auth, userController.getUsers);
 
 // PATCH - Update a product
