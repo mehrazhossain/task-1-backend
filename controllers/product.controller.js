@@ -3,6 +3,7 @@ const {
   getProductsService,
   updateProductService,
   deleteProductService,
+  getProductByIdService,
 } = require('../services/product.service');
 
 exports.createProduct = async (req, res, next) => {
@@ -25,11 +26,29 @@ exports.createProduct = async (req, res, next) => {
 
 exports.getProducts = async (req, res, next) => {
   try {
-    const tours = await getProductsService();
+    const products = await getProductsService();
 
     res.status(200).json({
       status: 'success',
-      data: tours,
+      data: products,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: "Can't get the data",
+      error: error.message,
+    });
+  }
+};
+
+exports.getProductById = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const product = await getProductByIdService(id);
+
+    res.status(200).json({
+      status: 'success',
+      data: product,
     });
   } catch (error) {
     res.status(400).json({

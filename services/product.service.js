@@ -11,6 +11,11 @@ exports.getProductsService = async () => {
   return products;
 };
 
+exports.getProductByIdService = async (id) => {
+  const product = await Product.findById({ _id: id });
+  return product;
+};
+
 exports.updateProductService = async (id, data) => {
   const response = await Product.updateOne(
     { _id: id },

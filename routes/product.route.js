@@ -13,6 +13,7 @@ router
 // DELETE - Delete a product
 router
   .route('/:id')
+  .get(productController.getProductById)
   .patch(productController.updateProduct)
   .delete(productController.deleteProduct);
 
